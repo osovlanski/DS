@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.StringTokenizer;
 
-
-
 public class MemoryManagement {
 
 	public static void main(String[] args) {
