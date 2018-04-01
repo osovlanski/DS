@@ -1,1 +1,4 @@
 assignments/.idea/workspace.xml
+*.class
+assignments/resources/output.txt
+assignments/resources/output1.txt
