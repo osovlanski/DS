@@ -6,6 +6,8 @@ package com.bgu.workground.assignment2.MemoryManagement;
  */
 public class Page {
     // ADD YOUR CODE HERE
+    //key = a unique number for the current page
+    //value = page data
     public int key;
     public String value;
 

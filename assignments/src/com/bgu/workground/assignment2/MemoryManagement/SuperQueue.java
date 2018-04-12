@@ -24,7 +24,6 @@ public class SuperQueue implements MyQueue<Node<Page>> {
         return last;
     }
 
-    //ToDo:maybe not sending all the secondaryMemory(maybe just the first n)
     public SuperQueue(int maxSize, String[] secondaryMemory, boolean isLRU){
         this.maxSize = maxSize;
         this.currentSize = 0;
@@ -49,7 +48,7 @@ public class SuperQueue implements MyQueue<Node<Page>> {
         append(myNode);
     }
 
-    public void pushToStart(Node<Page> tempNode){
+    public void lruUpdate(Node<Page> tempNode){
         // If this is the first node, leave the list as it is
         if (tempNode.element.key == last.element.key){
             return;
@@ -71,7 +70,7 @@ public class SuperQueue implements MyQueue<Node<Page>> {
             nextNode.previous = previousNode;
         }
 
-        // Finally move our item to the MRU(last)
+        // Finally move our item to the last
         tempNode.previous = last;
         last.next = tempNode;
         last = tempNode;

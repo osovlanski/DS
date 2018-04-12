@@ -60,7 +60,7 @@ public class MemoryManagementSystem{
 			if (!s.equals(""))
 				mainMemory.getPointers()[index].pointTo.element.addData(s);
 			if (useLRU)
-				mainMemory.pushToStart(mainMemory.getPointers()[index].pointTo);
+				mainMemory.lruUpdate(mainMemory.getPointers()[index].pointTo);
 
 		}
 	}
