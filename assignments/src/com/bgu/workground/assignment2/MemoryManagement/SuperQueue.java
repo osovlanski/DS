@@ -94,7 +94,8 @@ public class SuperQueue implements MyQueue<Node<Page>> {
         Node<Page> remove = first;
         pointers[first.element.key] = null;
         first = first.next;
-        first.previous = null;
+        if (first != null)
+            first.previous = null;
         currentSize--;
         return remove;
     }
