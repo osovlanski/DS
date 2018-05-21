@@ -2,6 +2,10 @@ package com.bgu.workground.assignment2.MemoryManagement;
 
 /**
  *
+ * @author
+ * Itay osovlanski	 3111292974
+ * Aslan aslan 302962493
+
  */
 public class SuperQueue implements MyQueue<Node<Page>> {
 
@@ -24,7 +28,7 @@ public class SuperQueue implements MyQueue<Node<Page>> {
         return last;
     }
 
-    public SuperQueue(int maxSize, String[] secondaryMemory, boolean isLRU){
+    public SuperQueue(int maxSize, String[] secondaryMemory){
         this.maxSize = maxSize;
         this.currentSize = 0;
         this.first = new Node<Page>(null, null, null);
@@ -33,6 +37,7 @@ public class SuperQueue implements MyQueue<Node<Page>> {
         initQueue(secondaryMemory);
     }
 
+    //init the queue from the secondary Memory
     public void initQueue(String[] secondaryMemory) {
         for (int i = 0; i < maxSize; i++) {
             append(i,secondaryMemory[i]);
@@ -91,6 +96,8 @@ public class SuperQueue implements MyQueue<Node<Page>> {
     @Override
     public Node<Page> removeFirst() {
         // Delete the first item and update the list
+        if (first == null)
+            return null;
         Node<Page> remove = first;
         pointers[first.element.key] = null;
         first = first.next;

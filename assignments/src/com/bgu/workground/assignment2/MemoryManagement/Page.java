@@ -1,8 +1,10 @@
 package com.bgu.workground.assignment2.MemoryManagement;
-
 /**
- * 
- * @author ADD YOUR NAME & ID
+ *
+ * @author
+ * Itay osovlanski	 3111292974
+ * Aslan aslan 302962493
+
  */
 public class Page {
     // ADD YOUR CODE HERE

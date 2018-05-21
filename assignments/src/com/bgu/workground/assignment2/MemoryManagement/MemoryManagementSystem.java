@@ -1,6 +1,9 @@
 package com.bgu.workground.assignment2.MemoryManagement; /**
- * 
- * @author ADD YOUR NAME & ID
+ *
+ * @author
+ * Itay osovlanski	 3111292974
+ * Aslan aslan 302962493
+
  */
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -10,10 +13,10 @@ import java.util.HashMap;
 
 
 public class MemoryManagementSystem{
+	// YOU CAN ADD MORE FIELDS HERE
 	public String[] secondaryMemory;
 	private boolean useLRU;
-	// YOU CAN ADD MORE FIELDS HERE
-	SuperQueue mainMemory;
+	private SuperQueue mainMemory;
 
 	 
 	public MemoryManagementSystem(int mainMemorySize, int secondaryMemorySize, boolean useLRU) {
@@ -23,7 +26,7 @@ public class MemoryManagementSystem{
 		for (int i = 0; i < secondaryMemorySize; i++) {
 			secondaryMemory[i]="";
 		}
-		this.mainMemory = new SuperQueue(mainMemorySize,secondaryMemory,useLRU);
+		this.mainMemory = new SuperQueue(mainMemorySize,secondaryMemory);
 
 	}
 
