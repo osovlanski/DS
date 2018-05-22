@@ -1,2 +1,2 @@
-Jelly&Peanut_Butter#Bert&Ernie|Kermit&Miss_Piggy#Batman&Robin|Chewbacca&Han_Solo,Chip&Dale,Garfunkel&Simon|Jerry&Tom|Lennon&McCartney,Patrick&Spongebob,Scooby_Doo&Shaggy^Jerry&Tom|Lennon&McCartney,Patrick&Spongebob,Scooby_Doo&Shaggy
+Lennon&McCartney#Bert&Ernie|Peanut_Butter&Jelly,Spongebob&Patrick#Batman&Robin|Chip&Dale,Han_Solo&Chewbacca|Miss_Piggy&Kermit|Scooby_Doo&Shaggy,Simon&Garfunkel^Miss_Piggy&Kermit|Scooby_Doo&Shaggy,Simon&Garfunkel|Tom&Jerry
 0,4

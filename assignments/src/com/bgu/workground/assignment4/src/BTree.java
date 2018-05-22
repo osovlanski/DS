@@ -114,8 +114,32 @@ public class BTree implements IBtree<DataPair>
     }
 
 
+    private DataPair getDataPair(String key){
+        String[] friends = key.split("&");
+        if (friends.length == 2) {
+            DataPair dp = new DataPair(friends[0], friends[1]);
+            return dp;
+        }else{
+            return null;
+        }
+    }
+
+    public BTNode search(String key){
+        DataPair dp = getDataPair(key);
+        if (dp != null)
+            return search(dp);
+        else
+            return null;
+    }
+
     public BTNode search(DataPair key){
-        return search(mRoot,key);
+        BTNode ans = search(mRoot,key);
+        if (ans == null) {
+            key.flip();
+            return search(mRoot, key);
+        }
+        else
+            return ans;
     }
 
     //
@@ -133,8 +157,16 @@ public class BTree implements IBtree<DataPair>
         return search(btNode.mChildren[0],key);
     }
 
+    public void insert(String key){
+        DataPair dp = getDataPair(key);
+        if (dp != null)
+            insert(dp);
+    }
+
     public void insert(DataPair item){
         BTNode curr = mRoot;
+        if (search(curr,item) != null)
+            return;
         // If root is full, then tree grows in height
         if (curr.mCurrentKeyNum == 2*t-1) {
             BTNode s = createNode();
@@ -250,12 +282,7 @@ public class BTree implements IBtree<DataPair>
             while (line != null) {
                 line = ibr.readLine();
                 if (line != null) {
-                    String[] friends = line.split("&");
-                    if (friends.length == 2) {
-                        DataPair dp = new DataPair(friends[0], friends[1]);
-                        if (search(dp) == null)
-                            insert(dp);
-                    }
+                    insert(line);
                 }
             }
 

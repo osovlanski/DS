@@ -14,7 +14,12 @@ public class DataPair implements Comparable<DataPair>
     public DataPair(String left, String right) {
         this.left = left.trim();
         this.right = right.trim();
-        sort();
+    }
+
+    public void flip(){
+        String temp = left;
+        left = right;
+        right = temp;
     }
 
     public void sort() {
@@ -33,7 +38,7 @@ public class DataPair implements Comparable<DataPair>
     @Override
     public int compareTo(DataPair o) {
         if (o == null) return 1;
-        o.sort();
+        //o.sort();
         int ans = left.compareTo(o.left);
         if (ans == 0)
             ans = right.compareTo(o.right);
