@@ -24,7 +24,6 @@ public class HashList {
                     curr.value = (int) curr.value + 1;
                     return;
                 }
-
                 curr = curr.next;
             }
             curr.next = new HashListElement<>(key,0);

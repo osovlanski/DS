@@ -17,17 +17,10 @@ public class DataPair implements Comparable<DataPair>
     }
 
     public void flip(){
+
         String temp = left;
         left = right;
         right = temp;
-    }
-
-    public void sort() {
-        if (left.compareTo(right) > 0){
-            String temp = left;
-            left = right;
-            right = temp;
-        }
     }
 
     @Override
