@@ -14,7 +14,7 @@ public class Messages implements Iterable {
         tables = new HashTable[allMessages.length];
         Iterator it = iterator();
         int index = 0;
-        while (it.hasNext()){
+        while (it.hasNext()){ //create hashtable for each message
             tables[index] = new HashTable(Integer.parseInt(arg));
             Message m = (Message)it.next();
             String []words = m.getWords().split(" ");
@@ -25,6 +25,7 @@ public class Messages implements Iterable {
         }
     }
 
+    //check if each message the fields [From,To] are not friends and find spams words
     public String findSpams(String s, BTree btree) {
         String out="";
         Iterator it = iterator();
@@ -40,6 +41,7 @@ public class Messages implements Iterable {
         return out.substring(0,out.length()-1);
     }
 
+    //check if spam message exist more times then the rate
     private String getSpamOutput(String s, String out, int index) {
         Spams spams = new Spams();
         spams.generateMessages(s);
@@ -54,6 +56,7 @@ public class Messages implements Iterable {
         return out;
     }
 
+    //read all the messages in the file and insert them to a queue
     private Queue<Message> getMessagesFromFile(String s){
         Queue<Message> queue = new QueueAsLinkedList<>();
         File inFile = new File(s);
@@ -65,12 +68,12 @@ public class Messages implements Iterable {
             ifr.close();
         }
         catch (Exception e) {
-            System.out.println("Error \"" + e.toString() + "\" on file " + s);
-            System.exit(-1); // brutally exit the program
+            throw new RuntimeException("Error \"" + e.toString() + "\" on file " + s);
         }
         return queue;
     }
 
+    //read each line in txt and create messages by relevant elements
     private void addMessagesToQueue(Queue<Message> queue, BufferedReader ibr) throws IOException {
         String line = "";
         Message message = new Message();
@@ -88,6 +91,7 @@ public class Messages implements Iterable {
         }
     }
 
+    //get output file and parse it to array
     public void generateMessages(String s){
         Queue<Message>list = getMessagesFromFile(s);
         if (list != null) {

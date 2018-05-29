@@ -273,9 +273,7 @@ public class BTree implements IBtree<DataPair>
             ibr.close();
             ifr.close();
         } catch (Exception e) {
-            System.out.println("Error \"" + e.toString() + "\" on file "
-                    + s);
-            System.exit(-1); // brutally exit the program
+            throw new RuntimeException("Error \"" + e.toString() + "\" on file " + s);
         }
     }
 

@@ -17,11 +17,6 @@ public class HashTable {
         mChainesArray = new HashList[M];
         mCapacity = M;
         mCurrentNumItems = 0;
-
-        // Create empty chains
-        //for (int i = 0; i < mCapacity; i++)
-            //mChainesArray[i].add(null);
-
     }
 
     public int size() { return mCurrentNumItems; }
