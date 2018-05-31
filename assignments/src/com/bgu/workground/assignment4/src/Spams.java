@@ -7,13 +7,14 @@ import java.io.FileReader;
 public class Spams implements Iterable {
     private Spam[] allSpams;
 
-    protected Queue<Spam> getMessagesFromFile(String s){
+    //read the file and create queue of spams
+    private Queue<Spam> getMessagesFromFile(String s){
         Queue<Spam> queue = new QueueAsLinkedList<>();
         File inFile = new File(s);
         try {
             FileReader ifr = new FileReader(inFile);
             BufferedReader ibr = new BufferedReader(ifr);
-
+            //get data for each line
             String line = "";
             while (line != null) {
                 line = ibr.readLine();
@@ -28,10 +29,7 @@ public class Spams implements Iterable {
         }
 
         catch (Exception e) {
-            System.out.println("Error \"" + e.toString() + "\" on file "
-                    + s);
-            e.printStackTrace();
-            System.exit(-1); // brutally exit the program
+            throw new RuntimeException("Error \"" + e.toString() + "\" on file " + s);
         }finally {
             return queue;
         }

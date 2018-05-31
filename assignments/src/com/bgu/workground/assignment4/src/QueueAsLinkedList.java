@@ -24,7 +24,6 @@ public class QueueAsLinkedList <T> implements Queue<T>{
         list.add(element);
     }
 
-
     public T dequeue() {
         if(isEmpty())
             throw new NoSuchElementException();
