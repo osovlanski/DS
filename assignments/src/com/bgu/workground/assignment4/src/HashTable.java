@@ -14,6 +14,9 @@ public class HashTable {
     private int mCurrentNumItems;
 
     public HashTable(int M){
+        if (M < 1)
+            throw new IllegalArgumentException("number is lower then 1");
+
         mChainesArray = new HashList[M];
         mCapacity = M;
         mCurrentNumItems = 0;

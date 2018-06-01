@@ -6,7 +6,12 @@ public class HashList {
 
     public HashList(String key,int value) {
         this.first = new HashListElement(key,value);
-        this.mSize=0;
+        this.mSize=1;
+    }
+
+    public HashList(){
+        this.first = null;
+        this.mSize = 0;
     }
 
     public int size(){
@@ -19,26 +24,31 @@ public class HashList {
         if (curr == null)
             first = new HashListElement<>(key,1);
         else {
-            while (curr.next != null) {
-                if (curr.key.equals(key)) {
-                    curr.value = (int) curr.value + 1;
-                    return;
-                }
+            while (curr.next != null && !curr.key.equals(key)) {
                 curr = curr.next;
             }
-            curr.next = new HashListElement<>(key,0);
+            if (curr.key.equals(key)) {
+                curr.value = (int) curr.value + 1;
+            }else{
+                curr.next = new HashListElement<>(key,1);
+            }
+
+
         }
         mSize++;
     }
 
+
     // get item in hash. if not exist return -1
     public int get(String key){
         HashListElement curr = first;
-        while (curr != null && !curr.key.equals(key))
-            curr = curr.next;
-        if (curr == null)
-            return -1;
-        else
+        if (curr.key.equals(key))
             return (int)curr.value;
+        while (curr.next != null && !curr.key.equals(key))
+            curr = curr.next;
+        if (curr.key.equals(key))
+            return (int)curr.value;
+        else
+            return -1;
     }
 }

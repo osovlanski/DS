@@ -1,0 +1,8 @@
+loan 2
+credit 1
+spam 2
+You 7.5
+Option 6.2
+one_more 95
+careful 12.8
+catched. 23

@@ -11,6 +11,6 @@ public interface IBtree<T> {
     public void clear(); //O(1)
     public void insert(T item); //O(logn)
     public T delete(T key); //O(logn)
-    public BTNode search(T key); //O(logn)
+    //public boolean search(T key); //O(logn)
 
 }

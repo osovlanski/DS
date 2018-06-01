@@ -10,11 +10,13 @@ import java.util.Scanner;
 public class Messages implements Iterable {
     private Message[]allMessages;
     private HashTable[] tables;
+
+    //create hashtable for each message, receive the size of the table from user
     public void createHashTables(String arg) {
         tables = new HashTable[allMessages.length];
         Iterator it = iterator();
         int index = 0;
-        while (it.hasNext()){ //create hashtable for each message
+        while (it.hasNext()){
             tables[index] = new HashTable(Integer.parseInt(arg));
             Message m = (Message)it.next();
             String []words = m.getWords().split(" ");
@@ -34,21 +36,25 @@ public class Messages implements Iterable {
             Message m = (Message)it.next();
             DataPair dp = new DataPair(m.getSender(),m.getReceiver());
             if (btree.search(dp)==null){
-                out = getSpamOutput(s, out, index);
+                out+= getSpamOutput(s, index);
             }
             index++;
         }
+        if (out.isEmpty())
+            return "";
         return out.substring(0,out.length()-1);
     }
 
     //check if spam message exist more times then the rate
-    private String getSpamOutput(String s, String out, int index) {
+    private String getSpamOutput(String s, int index) {
+        String out="";
         Spams spams = new Spams();
         spams.generateMessages(s);
         Iterator it2 = spams.iterator();
         while (it2.hasNext()){
             Spam sp = (Spam) it2.next();
-            if(tables[index].get(sp.getWords()) == sp.getRate()) {
+            if((double)tables[index].get(sp.getWords())/tables[index].size()*100
+                    >= sp.getRate()) {
                 out += index + ",";
                 break;
             }
@@ -82,13 +88,15 @@ public class Messages implements Iterable {
             if (line != null) {
                 if (line.startsWith("From:")) message.setSender(line.replace("From:","").trim());
                 else if (line.startsWith("To:")) message.setReceiver(line.replace("To:","").trim());
-                else if (!line.isEmpty() & !line.equals("#")) message.setWords(line);
+                else if (!line.isEmpty() & !line.equals("#")) message.appendWords(line);
                 else if (line.equals("#")) {
                     queue.enqueue(message);
                     message = new Message();
                 }
             }
         }
+        if (!message.getWords().isEmpty())
+            queue.enqueue(message);
     }
 
     //get output file and parse it to array

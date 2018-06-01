@@ -11,7 +11,7 @@ public class Message extends Words {
     }
 
     public Message(){
-        super(null);
+        super();
         new Message(null,null,null);
     }
 

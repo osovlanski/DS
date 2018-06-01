@@ -8,7 +8,6 @@ public class HashListElement <K, V>
     // Reference to next node
     HashListElement<K, V> next;
 
-    // Constructor
     public HashListElement(K key, V value)
     {
         this.key = key;

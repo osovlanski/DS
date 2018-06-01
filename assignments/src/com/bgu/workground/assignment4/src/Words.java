@@ -7,15 +7,21 @@ public class Words {
         this.Words = word;
     }
 
+    public Words() {
+        this.Words = "";
+    }
+
+
     public String getWords() {
         return Words;
     }
+
 
     public void setWords(String words) {
         Words = words;
     }
 
     public void appendWords(String words){
-        Words+=words;
+        Words+=words+" ";
     }
 }

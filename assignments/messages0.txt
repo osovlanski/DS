@@ -1,0 +1,81 @@
+
+From:Yuval_Zilber
+To:All_Students_That_uses_this_teste
+for TEST 4
+this is why you should catch/not catch any of the messages:
+NOT - for messages that are not cathed
+YES - for catched messages
+0 - YES - the word "spam" is a spam word and it appears here a lot.
+1 - YES - "Option" is a spam word. you could miss it if you count this message have 33 words instead of 32.
+2 - NOT - no bad words
+3 - NOT - well, i added those 3 messages (1,2,3) just because it is a beautiful conversation from a game i played
+4 - YES - "You" is a spam word with 7.5% and appears 7.89% of the text.
+5 - NOT - the word "spam" does not appear even once, only with addition.
+6 - NOT - friend1 and friend2 are friends
+7 - YES - "one_more" is a spam word and the only word in this message, then it is 100% of it.
+8 - NOT - "careful" is a spam word with 12.8% but appears only 12.5% of the text. maybe you parse it to 12%(int)?
+9 - YES - "catched." is a spam word.
+10 - NOT - "you" is not a spam word, "You" is.
+#
+From:Riley
+To:Ellie
+The way I see it we got two options. Option one, we take the easy way out. It's quick and painless. I'm not a fan of option one.
+Option two, We fight.
+#
+From:Ellie
+To:Riley
+Fight for what? We're gonna turn into one of those things!
+#
+From:Riley
+To:Ellie
+There are a million ways we should've died before today.
+And a million ways we can die before tomorrow.
+But we fight for every second that we get to spend with each other.
+Whether it's two minutes, or two days, we don't give that up. I don't want to give that up.
+#
+From:Eminem
+To:The_World
+You better lose yourself in the music, the moment
+You own it, you better never let it go
+You only get one shot, do not miss your chance to blow
+This opportunity comes once in a lifetime
+You better lose yourself in the music, the moment
+You own it, you better never let it go
+You only get one shot, do not miss your chance to blow
+This opportunity comes once in a lifetime you better
+#
+From:Tom
+To:Jerry
+hey man, i have a good Spam to sell you for hight price.
+this spam is for you, do you wanna see my spam?
+spamspamspam and some more spam. see?
+this message is undetectable! i am amazing!
+there is more spam-spam and "spam" for ,spam.
+if you catch me you not doing well.
+#
+From:friend1
+To:friend2
+spam spam spam spam spam spam spam
+spam spam spam spam spam spam spam
+spam spam spam spam spam spam spam spam
+you should not catch it, they are friends
+#
+From:Chewbacca
+To:Han_Solo
+one_more
+#
+From:good guy
+To:better guy
+this should not be catched, be careful
+this is always good to be careful right?
+you can be carefree only if careful you are
+#
+From:Scooby_Doo
+To:Shaggy
+this should be catched.
+cuz catched. is a spam world.
+this is catched.
+#
+From:Scooby_Doo
+To:Shaggy
+you you

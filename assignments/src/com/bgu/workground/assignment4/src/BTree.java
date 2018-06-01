@@ -19,10 +19,18 @@ public class BTree implements IBtree<DataPair>
     private BTNode mRoot = null;
     private int  mSize;
 
+    // create a new btree receive t from user
     public BTree(String arg) {
-        t = Integer.parseInt(arg);
-        BTNode.DEGREE = t;
-        mRoot = createNode();
+        try {
+            t = Integer.parseInt(arg);
+            if (t < 2)
+                throw new IllegalArgumentException(" number is lower then 1");
+            BTNode.DEGREE = t;
+            mRoot = createNode();
+        }catch (NumberFormatException nfe){
+            throw new NumberFormatException ("arg " + " is not a number");
+        }
+
     }
 
     @Override
@@ -46,18 +54,20 @@ public class BTree implements IBtree<DataPair>
         return getBfsOutput(ans, q, s, currNode);
     }
 
+    //bfs printer. using one queue for tree nodes and one for signs
     private String getBfsOutput(String ans, Queue<BTNode> q, Queue<Character> s, BTNode currNode) {
         int nodeCount = 1;
         while (true){
-            if (currNode.mCurrentChildrenNum == 0) return ans.substring(0,ans.length()-1);
+            if (currNode.mIsLeaf) return ans.substring(0,ans.length()-1);
             s.enqueue('#');
             int nextCount = 0;
-            while (nodeCount > 0){//enqueue all the nodes/signs in current high. and add the relevant values for ans
+            //enqueue all the nodes/signs in current high. and add the relevant values for ans
+            while (nodeCount > 0){
                 currNode = q.dequeue();
                 ans+=currNode.toString();
                 ans+=s.dequeue();
                 nextCount += currNode.mCurrentChildrenNum;
-                for (int i = 0; i < currNode.mCurrentChildrenNum; i++) {
+                for (int i = 0; i < currNode.mCurrentChildrenNum && currNode.mChildren[i] != null; i++) {
                     q.enqueue(currNode.mChildren[i]);
                     if (i < currNode.mCurrentChildrenNum - 1) s.enqueue('|');
                     else
@@ -105,22 +115,31 @@ public class BTree implements IBtree<DataPair>
     }
 
 
+    //create from a string a pair of friends
     private DataPair getDataPair(String key){
+        if (key.isEmpty())
+            throw new IllegalArgumentException("wrong friends argument");
+
         String[] friends = key.split("&");
-        if (friends.length == 2) {
-            DataPair dp = new DataPair(friends[0], friends[1]);
-            return dp;
-        }else{
-            return null;
+        switch (friends.length){
+            case 2:
+                DataPair dp = new DataPair(friends[0].trim(), friends[1].trim());
+                return dp;
+            case 1:
+                return new DataPair(key,"");
+            default:
+                throw new IllegalArgumentException("wrong friends argument");
         }
+
     }
 
-    public BTNode search(String key){
+    //search a key from btree (if not found we change the order of friends and try again)
+    public boolean search(String key){
         DataPair dp = getDataPair(key);
+        BTNode out=null;
         if (dp != null)
-            return search(dp);
-        else
-            return null;
+            out = search(dp);
+       return out != null;
     }
 
     public BTNode search(DataPair key){
@@ -145,16 +164,19 @@ public class BTree implements IBtree<DataPair>
             return btNode;//btNode.mKeys[i];
         if (btNode.mIsLeaf)
             return null;
-        return search(btNode.mChildren[0],key);
+        return search(btNode.mChildren[i],key);
     }
 
+    //insert a new key to the tree
     public void insert(String key){
         DataPair dp = getDataPair(key);
-        if (dp != null)
-            insert(dp);
+        insert(dp);
     }
 
     public void insert(DataPair item){
+        if (item == null)
+            throw new NullPointerException("cannot insert null key");
+
         //BTNode r = mRoot;
         if (search(mRoot,item) != null)
             return;
@@ -176,8 +198,6 @@ public class BTree implements IBtree<DataPair>
     // The assumption is, the node must be non-full when this
     // function is called
     private void insertNonFull(BTNode x, DataPair k) {
-        if (x == null)
-            x = createNode();
         int i = x.mCurrentKeyNum-1;
         if (x.mIsLeaf){
 
@@ -199,18 +219,40 @@ public class BTree implements IBtree<DataPair>
 
             i++;
             // See if the found child is full
-            if (x.mChildren[i] != null && x.mChildren[i].mCurrentKeyNum == 2*t -1){
+            if (x.mChildren[i].mCurrentKeyNum == 2*t -1){
                 splitChild(x,i,x.mChildren[i]);
                 if (k.compareTo(x.mKeys[i]) > 0)
                     i++;
             }
-            insertNonFull(x.mChildren[i],k);
+            insertNonFull(x.mChildren[i], k);
         }
     }
 
     // A utility function to split the child y of this node
     // Note that y must be full when this function is called
     private void splitChild(BTNode x, int i, BTNode y) {
+        BTNode z = splitChildY(y);
+        // Since this node is going to have a new child,
+        // create space of new child
+        for (int j = x.mCurrentKeyNum; j >= i+1; j--)
+            x.mChildren[j+1] = x.mChildren[j];
+
+        //if there was a child their we dont want the change the count (just to replace)
+        //if (x.mChildren[i+1] != null)
+            //x.mCurrentChildrenNum--;
+
+        x.mChildren[i+1] = z;
+        x.mCurrentChildrenNum++;
+        // A key of y will move to this node. Find location of
+        // new key and move all greater keys one space ahead
+        for (int j = x.mCurrentKeyNum-1; j >= i; j--)
+            x.mKeys[j+1] = x.mKeys[j];
+        // Copy the middle key of y to this node
+        x.mKeys[i] = y.mKeys[t-1];
+        x.mCurrentKeyNum++;
+    }
+
+    private BTNode splitChildY(BTNode y) {
         // Create a new node which is going to store (t-1) keys
         // of y
         BTNode z = createNode();
@@ -225,27 +267,12 @@ public class BTree implements IBtree<DataPair>
             for (int j = 0; j < t; j++)
                 z.mChildren[j] = y.mChildren[j + t];
             z.mCurrentChildrenNum = t;
-        }else z.mCurrentChildrenNum = 0;
+            y.mCurrentChildrenNum = y.mCurrentChildrenNum - t;
+        }else
+            z.mCurrentChildrenNum = 0;
 
         y.mCurrentKeyNum = t-1;
-
-        // Since this node is going to have a new child,
-        // create space of new child
-        for (int j = x.mCurrentKeyNum; j >= i+1; j--)
-            x.mChildren[j+1] = x.mChildren[j];
-
-        //if there was a child their we dont want the change the count (just to replace)
-        if (x.mChildren[i+1] != null)
-            x.mCurrentChildrenNum--;
-        x.mChildren[i+1] = z;
-        x.mCurrentChildrenNum++;
-        // A key of y will move to this node. Find location of
-        // new key and move all greater keys one space ahead
-        for (int j = x.mCurrentKeyNum-1; j >= i; j--)
-            x.mKeys[j+1] = x.mKeys[j];
-        // Copy the middle key of y to this node
-        x.mKeys[i] = y.mKeys[t-1];
-        x.mCurrentKeyNum++;
+        return z;
     }
 
 

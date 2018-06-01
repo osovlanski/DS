@@ -1,0 +1,11 @@
+A & A
+B & B
+C & C
+D & D
+G & G
+H & H
+K & K
+M & M
+R & R
+W & W
+Z & Z

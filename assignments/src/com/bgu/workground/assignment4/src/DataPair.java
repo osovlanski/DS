@@ -12,8 +12,8 @@ public class DataPair implements Comparable<DataPair>
     private String right;
 
     public DataPair(String left, String right) {
-        this.left = left.trim();
-        this.right = right.trim();
+        this.left = left;
+        this.right = right;
     }
 
     public void flip(){
@@ -24,9 +24,12 @@ public class DataPair implements Comparable<DataPair>
 
     @Override
     public String toString() {
-        return left+"&"+right;
+        if (left.isEmpty()) return right;
+        else if (right.isEmpty()) return left;
+        return left+" & "+right;
     }
 
+    //using regular string compare
     @Override
     public int compareTo(DataPair o) {
         if (o == null) return 1;
